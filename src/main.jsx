@@ -3,15 +3,30 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 
-// This function initializes the React app
-window.initializeReactApp = function (rootElement) {
-    if (rootElement) {
-        ReactDOM.createRoot(rootElement).render(
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-        );
-    }
-};
 
-window.initializeReactApp(document.getElementById('root'));
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+);
+
+// Function to handle incoming messages
+window.addEventListener('message', (event) => {
+    // Ensure the message is from the expected origin
+    if (
+        event.origin !== 'https://myowncorp3-dev-ed.develop.lightning.force.com' ||
+        event.origin !== 'https://myowncorp3-dev-ed.develop.my.salesforce.com/'
+    ) {
+        return;
+    }
+
+    // Handle the message
+    const { data } = event;
+    console.log('Received message REACT:', data);
+
+    // Respond to specific messages
+    if (data.type === 'greeting') {
+        window.parent.postMessage({ type: 'response', message: 'Hello from React!' }, event.origin);
+    }
+});
+
