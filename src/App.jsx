@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(2)
 
     const postMessage = () => {
         window.parent.postMessage({ type: 'response', message: 'React app is ready' }, '*');
