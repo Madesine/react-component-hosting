@@ -12,6 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 // Function to handle incoming messages
 window.addEventListener('message', (event) => {
+    console.log("onMessage", event.origin, event.data)
     // Ensure the message is from the expected origin
     if (
         event.origin !== 'https://myowncorp3-dev-ed.develop.lightning.force.com' ||
